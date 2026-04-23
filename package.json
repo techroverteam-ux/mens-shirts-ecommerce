@@ -1,0 +1,21 @@
+{
+  "name": "mens-shirts-ecommerce",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "backend",
+    "frontend"
+  ],
+  "scripts": {
+    "db:start": "docker-compose up -d",
+    "db:stop": "docker-compose down",
+    "install:all": "npm install && npm run workspace:install",
+    "dev": "concurrently \"PORT=5001 cd backend && npm run dev\" \"wait-on http://localhost:5001 && cd frontend && npm run dev\"",
+    "seed": "cd backend && npm run seed"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "wait-on": "^7.2.0"
+  },
+  "packageManager": "npm@10.2.4"
+}

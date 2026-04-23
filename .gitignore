@@ -1,0 +1,23 @@
+# Dependencies
+node_modules/
+npm-debug.log*
+
+# Env
+.env
+.env.local
+.env.production
+
+# DB
+data/
+*.log
+
+# Docker
+.dockerignore
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
