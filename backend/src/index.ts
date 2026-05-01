@@ -21,12 +21,31 @@ mongoose.connect(process.env.MONGODB_URI!)
 app.use(cors({ origin: "http://localhost:3000", credentials: true }));
 app.use(express.json());
 
+// Health check endpoint
+app.get('/health', (req, res) => {
+  res.status(200).json({ status: 'OK', message: 'Backend is running' });
+});
+
+// Root endpoint
+app.get('/', (req, res) => {
+  res.status(200).json({ 
+    message: 'VCHUKI Backend API', 
+    version: '1.0.0',
+    endpoints: {
+      health: '/health',
+      swagger: '/api-docs',
+      auth: '/api/auth/*',
+      products: '/api/products'
+    }
+  });
+});
+
 // Swagger
 const swaggerOptions = {
   definition: {
     openapi: '3.0.0',
     info: {
-      title: 'VCHUKI Men&#39;s Shirts E-Commerce API',
+      title: 'VCHUKI Men\'s Shirts E-Commerce API',
       version: '1.0.0',
       description: 'Full-stack platform for seasonal shirts'
     },
@@ -131,5 +150,7 @@ app.route('/api/products')
 app.listen(PORT, () => {
   console.log(`VCHUKI Backend: http://localhost:${PORT}`);
   console.log(`Swagger: http://localhost:${PORT}/api-docs`);
+  console.log(`Health Check: http://localhost:${PORT}/health`);
   console.log('Atlas URI loaded');
 });
+

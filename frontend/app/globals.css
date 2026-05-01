@@ -2,16 +2,86 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: 0 0% 100%;
-  --foreground: 222.2 84% 4.9%;
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    @apply bg-gray-50 text-gray-900 antialiased;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-bold tracking-tight;
+  }
 }
 
-@layer base {
-  * {
-    @apply border-border;
+@layer components {
+  .btn-primary {
+    @apply bg-primary text-white border-2 border-primary hover:bg-white hover:text-primary transition-all duration-200 font-medium uppercase tracking-wide;
   }
-  body {
-    @apply bg-background text-foreground;
+  
+  .btn-outline {
+    @apply bg-transparent text-primary border-2 border-primary hover:bg-primary hover:text-white transition-all duration-200 font-medium uppercase tracking-wide;
+  }
+  
+  .gradient-overlay {
+    background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.4) 70%, rgba(0, 0, 0, 0.8) 100%);
+  }
+  
+  .text-shadow {
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  }
+  
+  .backdrop-blur-glass {
+    backdrop-filter: blur(8px);
+    background: rgba(255, 255, 255, 0.9);
+  }
+
+  /* Header specific styles */
+  .header-announcement {
+    background: linear-gradient(90deg, #dc2626 0%, #ea580c 50%, #eab308 100%);
+  }
+  
+  .header-nav-link {
+    @apply font-medium tracking-wide uppercase text-sm text-black hover:text-gray-600 transition-colors duration-200 relative;
+  }
+  
+  .header-nav-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -4px;
+    left: 50%;
+    background-color: #000;
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+  }
+  
+  .header-nav-link:hover::after {
+    width: 100%;
+  }
+  
+  .mobile-menu-item {
+    @apply flex items-center py-3 pl-1 gap-3 hover:bg-gray-50 w-full text-black transition-colors duration-200;
+  }
+}
+
+@layer utilities {
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  
+  .aspect-square {
+    aspect-ratio: 1 / 1;
+  }
+  
+  .aspect-portrait {
+    aspect-ratio: 3 / 4;
   }
 }

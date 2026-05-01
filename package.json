@@ -10,8 +10,14 @@
     "db:start": "docker-compose up -d",
     "db:stop": "docker-compose down",
     "install:all": "npm install && npm run workspace:install",
-    "dev": "concurrently \"PORT=5001 cd backend && npm run dev\" \"wait-on http://localhost:5001 && cd frontend && npm run dev\"",
-    "seed": "cd backend && npm run seed"
+    "dev": "npm run db:start && concurrently \"PORT=5001 cd backend && npm run dev\" \"wait-on http://localhost:5001/health --timeout 60000 && cd frontend && npm run dev\"",
+    "dev:all": "concurrently \"npm run db:start\" \"wait-on tcp:27017 --timeout 30000 && PORT=5001 cd backend && npm run dev\" \"wait-on http://localhost:5001/health --timeout 90000 && cd frontend && npm run dev\"",
+    "dev:frontend": "cd frontend && npm run dev",
+    "dev:backend": "cd backend && npm run dev",
+    "dev:db": "docker-compose up",
+    "stop": "npm run db:stop",
+    "seed": "cd backend && npm run seed",
+    "clean": "npm run db:stop && docker system prune -f"
   },
   "devDependencies": {
     "concurrently": "^8.2.2",
